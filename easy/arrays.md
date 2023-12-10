@@ -36,3 +36,30 @@ function singleNumber(nums: number[]): number {
 - The function iterates through the entire `nums` array once, leading to a time complexity of **O(n)**, where **n** is the number of elements in the array.
 
 - The usage of the `Map` keeps the space complexity at **O(n)**, as in the worst case, the `Map` will contain half of the elements from `nums`.
+
+### Observation
+
+This also applies pretty damn well to the challenge [Single Number 2](https://leetcode.com/problems/single-number-ii/description/)
+
+![image](https://github.com/gasampaiosouza/leetcode-answers/assets/47998700/0f259bfa-54d9-42b5-a45e-63afa1866dfd)
+
+just by changing some lines of code.
+
+```typescript
+function singleNumber(nums: number[]): number {
+    const seen = new Map();
+
+    // new logic
+    for (let num of nums) {
+        const currentSavedValue = seen.get(num)
+
+        if (!currentSavedValue) seen.set(num, 1)
+        else seen.set(num, currentSavedValue + 1)
+    }
+
+    // new returning logic
+    for (let [key, value] of seen.entries()) {
+        if (value === 1) return key;
+    }
+};
+```
